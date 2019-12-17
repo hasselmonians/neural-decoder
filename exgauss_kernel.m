@@ -4,7 +4,7 @@ function k = exgauss_kernel(bandwidth, params, notch)
 
   k = exgauss_pdf(bandwidth, mu, sigma, tau);
 
-  if ~exist('notch', 'var') || isempty(notch)
+  if ~exist('notch', 'var') || ~notch
     % do nothing
   else
     % notch the kernel at t = 0
