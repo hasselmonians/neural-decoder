@@ -12,4 +12,7 @@
 
 function [spike_train, transformed_signal] = generate_fake_data(raw_signal, kernel)
 
+  transformed_signal = conv(raw_signal, kernel, 'same');
+  spike_train = poissrnd(transformed_signal);
+
 end % function
