@@ -1,8 +1,16 @@
 % create an exgaussian kernel
+%
+% Arguments:
+%   x: vector of the kernel support
+%     should range from 0 to bandwidth in units of time steps
+%   params
+%     alpha, mu, sigma, tau
+%   notch
+%     if true, replaces the first value of the kernel with 0, for cross-validation
 
-function k = exgauss_kernel(bandwidth, params, notch)
+function k = exgauss_kernel(x, params, notch)
 
-  k = params(1) * exgauss_pdf(bandwidth, params(2), params(3), params(4));
+  k = params(1) * exgauss_pdf(x, params(2), params(3), params(4));
 
   if ~exist('notch', 'var') || ~notch
     % do nothing
