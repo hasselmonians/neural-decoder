@@ -8,6 +8,7 @@ You will need
 * [RatCatcher](https://github.com/hasselmonians/RatCatcher)
 * [BandwidthEstimator](https://github.com/hasselmonians/BandwidthEstimator)
 * [mtools](https://github.com/sg-s/srinivas.gs_mtools)
+* [ex-gaussian](https://github.com/hasselmonians/ex-gaussian)
 
 ## Step 1: Collect the raw data
 
