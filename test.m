@@ -45,7 +45,8 @@ figlib.pretty('PlotBuffer', 0.1)
 
 %% Perform the convolution
 
-[spike_train, transformed_signal] = encode(raw_signal, kernel);
+transformed_signal = encode(raw_signal, kernel);
+spike_train = poissrnd(transformed_signal);
 
 %% Plot the convolution, the spike train, and the raw data
 
@@ -71,16 +72,3 @@ box off
 
 xlabel('time (s)')
 figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
-
-%
-%
-%
-% figure;
-% yyaxis left
-% plot(time, raw_signal)
-% xlabel('time (s)')
-% ylabel('animal running speed (cm/s)')
-% yyaxis right
-% plot(time, transformed_signal)
-% ylabel('firing rate (Hz)')
-% figlib.pretty('PlotBuffer', 0.1)
