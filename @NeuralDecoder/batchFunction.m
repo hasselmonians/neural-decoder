@@ -9,7 +9,6 @@ function batchFunction(index, location, batchname, outfile, test)
   % if test is false, do not add to the matlab path
   if ~test
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/RatCatcher/'))
-    addpath(genpath('/projectnb/hasselmogrp/ahoyland/BandwidthEstimator/'))
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/srinivas.gs_mtools'))
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/CMBHOME/'))
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/neural-decoder/'))
@@ -31,7 +30,7 @@ function batchFunction(index, location, batchname, outfile, test)
 
   %% Generate the Bandwidth Estimator
 
-  best        = BandwidthEstimator(root);
+  neurodec    = NeuralDecoder(root);
 
   %% Particle swarm optimization
 
@@ -41,12 +40,12 @@ function batchFunction(index, location, batchname, outfile, test)
   options.UseParallel = true;
 
   % cost function should take only one argument, a vector of parameters
-  cost_function = @(params) best.optimize_EMG_kernel(speed, params);
+  fun = @(params) neurodec.optimize_EMG_kernel(speed, params);
   % lower bounds
   lb = [0, 0, 0, 0];
   % upper bounds
   ub = [100, 100, 100, 100];
-  [params, fval, exitflag, output] = particleswarm(cost_function, 3, lb, ub, options);
+  [params, fval, exitflag, output] = particleswarm(fun, 3, lb, ub, options);
 
   %% Save the data
 

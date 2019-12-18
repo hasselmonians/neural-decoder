@@ -6,14 +6,13 @@ Produces a model of the relationship between an extrinsic observable signal and 
 You will need
 
 * [RatCatcher](https://github.com/hasselmonians/RatCatcher)
-* [BandwidthEstimator](https://github.com/hasselmonians/BandwidthEstimator)
 * [mtools](https://github.com/sg-s/srinivas.gs_mtools)
 * [ex-gaussian](https://github.com/hasselmonians/ex-gaussian)
 
 ## Step 1: Collect the raw data
 
 The raw data is in the form of `CMBHOME.Session` objects.
-These can be loaded into `BandwidthEstimator` objects
+These can be loaded into `NeuralDecoder` objects
 to extract the spike train.
 
 The data tables which contain the post-processed datasets
@@ -27,7 +26,7 @@ scc1.bu.edu:/projectnb/hasselmogrp/ahoyland/data/caitlin/Caitlin-BandwidthEstima
 The raw data files can be loaded from the filenames and filecodes.
 
 ```matlab
-[best, root] = RatCatcher.extract(dataTable, index, 'BandwidthEstimator', @(x) strrep(x, 'projectnb', 'mnt'));
+[neurodec, root] = RatCatcher.extract(dataTable, index, 'NeuralDecoder', @(x) strrep(x, 'projectnb', 'mnt'));
 ```
 
 ## Step 2: Extract the signals
@@ -36,7 +35,7 @@ Neither the bandwidth parameter nor the firing rate estimate is necessary
 for this analysis.
 Instead, it is important to acquire the spike train and extrinsic biological signals.
 
-* The spike train exists in the `best.spikeTrain` property.
+* The spike train exists in the `neurodec.spikeTrain` property.
 * The animal running speed can be found in the `root.svel` property.
 * The head direction can be found in the `root.headdir` property.
 
