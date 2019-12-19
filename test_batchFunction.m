@@ -24,7 +24,7 @@ neurodec.verbosity    = true;
 
 % particle swarm configuration
 options               = optimoptions('particleswarm');
-options.Display       = 'off';
+options.Display       = 'iter';
 options.UseParallel   = true;
 
 % cost function should take only one argument, a vector of parameters
