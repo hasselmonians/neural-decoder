@@ -42,7 +42,7 @@ function objective = optimize_EMG_kernel(self, signal, params)
 
   logL = self.loglikelihood(transformed_signal);
 
-  if logL < 0
+  if logL <= 0
     objective = abs(logL) + 1;
   else
     objective = 1 / logL;
