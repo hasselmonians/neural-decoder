@@ -14,6 +14,11 @@ methods
 
   % constructor
   function self = NeuralDecoder(root)
+
+    if nargin == 0
+      return
+    end
+    
     self.timestamps   = root.ts;
     self.spikeTimes   = CMBHOME.Utils.ContinuizeEpochs(root.cel_ts);
     self.spikeTrain   = NeuralDecoder.getSpikeTrain(self.spikeTimes, self.timestamps);
