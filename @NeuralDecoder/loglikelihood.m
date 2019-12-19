@@ -1,22 +1,25 @@
 % loglikelihood
 % computes the log likelihood of a non-homogeneous Poisson process
-% where firing_rate_estimate is the Poisson rate
+% where transformed_signal is the Poisson rate
 % and the Poisson process produces a given spike train
 %
 %% Arguments:
 %   self: a NeuralDecoder object
-%   firing_rate_estimate: an estimate for the underlying firing rate
+%   transformed_signal: an estimate for the underlying firing rate
 %     this is a vector probably computed by kconv
 %
 %% Outputs: the loglikelihood as a scalar
 %
 % See Also: NeuralDecoder.kernelCore, NeuralDecoder.cvKernel
 
-function L = loglikelihood(self, firing_rate_estimate)
+function L = loglikelihood(self, transformed_signal)
 
   dt = 1 / self.Fs;
 
-  L = sum(-firing_rate_estimate' * dt + self.spikeTrain .* log(firing_rate_estimate') ...
-      + self.spikeTrain * log(dt) - log(factorial(self.spikeTrain)));
+  L = sum( ...
+    - transformed_signal * dt ...
+    + self.spikeTrain .* log(transformed_signal) ...
+    + self.spikeTrain * log(dt) ...
+    - log(factorial(self.spikeTrain)));
 
 end % function
