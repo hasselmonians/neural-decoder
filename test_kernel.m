@@ -45,7 +45,7 @@ figlib.pretty('PlotBuffer', 0.1)
 
 %% Perform the convolution
 
-transformed_signal = encode(raw_signal, kernel);
+transformed_signal = NeuralDecoder.encode(raw_signal, kernel);
 spike_train = poissrnd(transformed_signal);
 
 %% Plot the convolution, the spike train, and the raw data
