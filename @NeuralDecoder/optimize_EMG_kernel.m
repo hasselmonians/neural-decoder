@@ -28,6 +28,12 @@ function cost = optimize_EMG_kernel(self, signal, params)
   % perform the convolution
   transformed_signal = NeuralDecoder.encode(signal, kernel);
 
+  % penalize returning NaNs
+  if any(isnan(transformed_signal))
+    cost = 1e12;
+    return
+  end
+
   % fix log(0) problem
   transformed_signal(~transformed_signal) = 1e-5;
 
