@@ -32,7 +32,7 @@ fun = @(params) neurodec.optimize_EMG_kernel(raw_signal, params);
 % lower bounds
 lb = [0, 0, 0, 0];
 % upper bounds
-ub = [100, 100, 100, 100];
+ub = [2, 10, 10, 10];
 
 % perform particle swarm optimization
 [new_params, fval, exitflag, output] = particleswarm(fun, 4, lb, ub, options);
