@@ -42,3 +42,22 @@ ub = [2, 10, 10, 10];
 
 disp(['Old parameters: ' mat2str(params)])
 disp(['New parameters: ' mat2str(new_params)])
+
+% support of the kernel
+w = neurodec.getKernelSupport();
+
+% compute the kernel and transformed signal
+[~, ~, new_kernel, new_transformed_signal] = neurodec.objective_function(raw_signal, new_params);
+
+figure;
+subplot(1, 2, 1); hold on;
+plot(w, kernel, 'k')
+plot(w, new_kernel, 'r')
+xlabel('time (s)')
+title('kernels')
+
+subplot(1, 2, 2); hold on;
+plot(time, transformed_signal, 'k')
+plot(time, new_transformed_signal, 'r')
+
+figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1)
