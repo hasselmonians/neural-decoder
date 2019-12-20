@@ -28,7 +28,7 @@ options.Display       = 'iter';
 options.UseParallel   = true;
 
 % cost function should take only one argument, a vector of parameters
-fun = @(params) neurodec.optimize_EMG_kernel(raw_signal, params);
+fun = @(params) neurodec.objective_function(raw_signal, params);
 % lower bounds
 lb = [0, 0, 0, 0];
 % upper bounds
