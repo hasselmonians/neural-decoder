@@ -18,9 +18,10 @@ close all
 % instantiate the NeuralDecoder object
 neurodec              = NeuralDecoder();
 neurodec.spikeTrain   = spike_train;
-neurodec.Fs           = 50;
+neurodec.Fs           = 50; % Hz
 neurodec.timestamps   = time;
 neurodec.verbosity    = true;
+neurodec.bandwidth    = 60; % s
 
 % particle swarm configuration
 options               = optimoptions('particleswarm');

@@ -13,9 +13,8 @@ function [objective, logL] = objective_function(self, signal, params)
 
   %% Produce an exponentially-modified Gaussian kernel
 
-  % bandwidth
-  bandwidth = 60; % seconds
-  w = colon(0, 1/self.Fs, bandwidth); % seconds
+  % x-axis for kernel
+  w = self.getKernelSupport();
 
   % generate the kernel
   kernel = exgauss_kernel(w, params);
