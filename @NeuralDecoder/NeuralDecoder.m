@@ -33,6 +33,7 @@ end % methods
 methods (Static)
 
                             batchFunction(index, location, batchname, outfile, test);
+  [transformed_signal]    = encode(raw_signal, kernel)
   [spikeTrain]            = getSpikeTrain(spikeTimes, timestamps)
 
 end % static methods
