@@ -1,14 +1,14 @@
 %% Generate some fake data
 
 % generate time vector
-total_time = 60; % seconds
+total_time = 100; % seconds
 fs = 50; % Hz
 time = colon(0, 1/fs, total_time); % seconds
 
 % generate an observable signal
 % raw_signal = 25 + 25 * sin(2*pi / (10) * time);
 % raw_signal = 25 + 25 * square(2 * pi / 20 * time);
-raw_signal = 5 + 20 * rectpuls(time - 30, 10);
+raw_signal = 5 + 20 * rectpuls(time - 30, 10) + 20 * rectpuls(time - 60, 10);
 
 %% Produce an exponentially-modified Gaussian kernel
 
@@ -92,7 +92,7 @@ iodata = nldat([raw_signal; transformed_signal]', ...
 % compute the impulse response function
 % using the pseudo-inverse IRF approximation algorithm
 
-h = irf(iodata, 'nlags', 15*fs, 'mode', 'auto');
+h = irf(iodata, 'nlags', 30*fs, 'mode', 'auto');
 
 figure;
 plot(h)
