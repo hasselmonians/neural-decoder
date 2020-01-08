@@ -7,7 +7,7 @@ You will need
 
 * [RatCatcher](https://github.com/hasselmonians/RatCatcher)
 * [mtools](https://github.com/sg-s/srinivas.gs_mtools)
-* [ex-gaussian](https://github.com/hasselmonians/ex-gaussian)
+* [NLID-matlab-toolbox](https://github.com/pedroperrusi/NLID-matlab-toolbox)
 
 ## Step 1: Collect the raw data
 
@@ -47,10 +47,26 @@ Then, the cell emits spikes stochastically,
 according to a Poisson process.
 
 We assume that the transformation from the biological signal to the
-latent time-varying signal can be written as a convolution.
-We convolve the biological signal with an exponentially-modified Gaussian kernel.
-Then, we treat this signal as the rate of a non-homogeneous Poisson process
-and generate a spike train.
+latent time-varying signal can be written as a convolution of an impulse response function
+and the biological signal.
 
-We maximize the log-likelihood of the Poisson process
-in order to indirectly optimize the kernel parameters.
+The latent time-varying signal is estimated by producing a firing rate estimate from the spike train.
+We compute the firing rate estimate by kernel smoothing, choosing the bandwidth
+by maximizing the cross-validated log-likelihood that the computed firing rate estimate
+is the inhomogeneous rate parameter of the Poisson process that generated the known spike train
+(Prerau & Eden 2011, Dannenberg *et al.* 2019).
+
+We estimate the impulse response function of the cell through a pseudo-inverse based algorithm
+(Westwick & Kearney 2003, Ch. 5).
+This method produces a much less noisy estimate without introducing too much bias.
+
+1. Estimate the autocorrelation and cross-correlation of the input and input-output.
+2. Compute an initial estimate of the IRF
+by estimating the Hessian from the autocorrelation coefficients.
+The initial estimate is the inverse of the Hessian times the cross-correlation.
+3. Compute the singular value decomposition (SVD) of the Hessian
+and calculate the output variance contributed by each singular value
+and its corresponding singular vector. Sort in decreasing order.
+4. Calculate the minimum description length (MDL) cost function for all model parameters M = 1, 2, ... .
+5. Choose the value of M that minimizes the MDL
+and retain only the M most significant terms for the final IRF estimate.
