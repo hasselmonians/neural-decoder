@@ -13,7 +13,7 @@ function batchFunction(index, location, batchname, outfile, test)
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/CMBHOME/'))
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/neural-decoder/'))
     addpath(genpath('/projectnb/hasselmogrp/ahoyland/ex-gaussian/'))
-    % addpath(genpath('/projectnb/hasselmogrp/ahoyland/NLID-matlab-wrapper/'))
+    addpath(genpath('/projectnb/hasselmogrp/ahoyland/NLID-matlab-toolbox/'))
     import CMBHOME.*
   end
 
