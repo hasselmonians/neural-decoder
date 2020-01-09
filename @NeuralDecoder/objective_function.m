@@ -46,10 +46,16 @@ function [objective, logL, kernel, transformed_signal] = objective_function(self
 
   logL = self.loglikelihood(transformed_signal);
 
-  if logL <= 0
-    objective = abs(logL) + 1;
-  else
-    objective = 1 / logL;
-  end
+  % if logL <= 0
+  %   objective = abs(logL) + 1;
+  % else
+  %   objective = 1 / logL;
+  % end
+
+  % exponentiate to get the actual likelihood
+  % take the inverse to get the objective
+  % so that likelihood is maximized
+  objective = 1 / exp(logL);
+
 
 end % objective_function
