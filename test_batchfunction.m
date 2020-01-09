@@ -99,7 +99,7 @@ h = irf(iodata, 'nlags', 15 * neurodec.Fs, 'mode', 'auto');
 figure;
 hold on
 plot(w, kernel)
-plot(double(h) / neurodec.Fs)
+plot(domain(h), double(h) / neurodec.Fs)
 xlabel('lag (s)')
 ylabel('kernel (cm^{-1})')
 title('true and estimated kernels')
