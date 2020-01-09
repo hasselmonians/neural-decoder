@@ -46,8 +46,7 @@ function batchFunction(index, location, batchname, outfile, test)
   [~, kmax] = best.cvKernel();
 
   % generate a firing rate estimate
-  k = best.kernel(kmax);
-  firing_rate_estimate = best.kconv(k);
+  firing_rate_estimate = best.kconv(kmax);
 
   %% Instantiate the nldat object
 
@@ -67,6 +66,10 @@ function batchFunction(index, location, batchname, outfile, test)
 
   %% Save the data
 
-  writematrix([k(:), h(:)], outfile);
+  output = NaN(length(h), 2);
+  output(:, 1) = h(:);
+  output(1, 2) = kmax;
+
+  writematrix(output, outfile);
 
 end % function
