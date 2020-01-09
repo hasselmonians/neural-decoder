@@ -25,14 +25,28 @@ function batchFunction(index, location, batchname, outfile, test)
 
   % load the root object from the specified raw data file
   load(filename);
-  root.cel    = cellnum;
-  root        = root.AppendKalmanVel;
-  speed       = root.svel;
+  root.cel = cellnum;
+  root = root.AppendKalmanVel;
+  speed = root.svel;
 
   %% Generate the Neural Decoder object
 
-  neurodec    = NeuralDecoder(root);
+  neurodec = NeuralDecoder(root);
   neurodec.bandwidth = 60; % s
+
+  %% Generate a firing rate estimate
+
+  best = BandwidthEstimator(root);
+  best.parallel = false;
+  best.range = 3:2:(neurodec.bandwidth * best.Fs);
+  best.kernel = 'hanning';
+
+  % perform bandwidth parameter estimation with MLE/CV
+  [~, kmax] = best.cvKernel();
+
+  % generate a firing rate estimate
+  k = best.kernel(kmax);
+  firing_rate_estimate = best.kconv(k);
 
   %% Instantiate the nldat object
 
@@ -48,10 +62,10 @@ function batchFunction(index, location, batchname, outfile, test)
   % Westwick & Kearney 2003, Ch. 5
 
   nLags = neurodec.bandwidth * neurodec.Fs;
-  h = irf(iodata, 'nlags', nLags, 'mode', 'auto');
+  h = (1 / neurodec.Fs) * double(irf(iodata, 'nlags', nLags, 'mode', 'auto'));
 
   %% Save the data
 
-  writematrix(h, outfile);
+  writematrix([k(:), h(:)], outfile);
 
 end % function
