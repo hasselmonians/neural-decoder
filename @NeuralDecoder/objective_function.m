@@ -10,6 +10,11 @@ function [objective, logL, kernel, transformed_signal] = objective_function(self
   %   signal: the extrinsic signal (e.g. the running speed of the animal)
   %   params: a 4x1 or 1x4 vector of parameters (alpha, mu, sigma, tau)
   %     corresponding to the parameters of a scaled EMG kernel
+  % Outputs:
+  %   objective: the scalar value returned by the objective function
+  %   logL: the log-likelihood
+  %   kernel: the kernel/impulse response function
+  %   transformed signal: the raw signal convolved with the kernel
 
   %% Produce an exponentially-modified Gaussian kernel
 
