@@ -24,18 +24,18 @@ function batchFunction(index, location, batchname, outfile, test)
 
   % load the root object from the specified raw data file
   load(filename);
-  root.cel    = cellnum;
-  root        = root.AppendKalmanVel;
-  speed       = root.svel;
+  root.cel = cellnum;
+  root = root.AppendKalmanVel;
+  speed = root.svel;
 
   %% Generate the Bandwidth Estimator
 
-  neurodec    = NeuralDecoder(root);
+  neurodec = NeuralDecoder(root);
 
   %% Particle swarm optimization
 
   % configure options
-  options     = optimoptions('particleswarm');
+  options = optimoptions('particleswarm');
   options.Display = 'off';
   options.UseParallel = true;
 
