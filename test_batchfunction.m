@@ -92,14 +92,30 @@ iodata = nldat([raw_signal; transformed_signal]', ...
 % compute the impulse response function
 % using the pseudo-inverse IRF approximation algorithm
 
-h = irf(iodata, 'nlags', neurodec.bandwidth * neurodec.Fs, 'mode', 'auto');
+h = irf(iodata, 'nlags', 15 * neurodec.Fs, 'mode', 'auto');
+
+%% Plot the true and estimated kernels across their supports
 
 figure;
-plot(h)
 hold on
-plot(w, 50*kernel)
+plot(w, kernel)
+plot(double(h) / neurodec.Fs)
+xlabel('lag (s)')
+ylabel('kernel (cm^{-1})')
+title('true and estimated kernels')
+figlib.pretty('PlotBuffer', 0.1)
+box off
+legend({'true', 'estimated'})
+
+%% Plot the true and estimated firing rates across time
 
 figure;
-plot(time, neurodec.encode(raw_signal, 1/neurodec.Fs * double(h)));
 hold on
 plot(time, transformed_signal);
+plot(time, neurodec.encode(raw_signal, 1/neurodec.Fs * double(h)));
+xlabel('time (s)')
+ylabel('firing rate (Hz)')
+title('true and estimated firing rates')
+figlib.pretty('PlotBuffer', 0.1)
+box off
+legend({'true', 'estimated'})
