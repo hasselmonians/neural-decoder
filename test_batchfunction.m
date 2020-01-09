@@ -92,7 +92,14 @@ iodata = nldat([raw_signal; transformed_signal]', ...
 % compute the impulse response function
 % using the pseudo-inverse IRF approximation algorithm
 
-h = irf(iodata, 'nlags', 30*fs, 'mode', 'auto');
+h = irf(iodata, 'nlags', neurodec.bandwidth * neurodec.Fs, 'mode', 'auto');
 
 figure;
 plot(h)
+hold on
+plot(w, 50*kernel)
+
+figure;
+plot(time, neurodec.encode(raw_signal, 1/neurodec.Fs * double(h)));
+hold on
+plot(time, transformed_signal);
