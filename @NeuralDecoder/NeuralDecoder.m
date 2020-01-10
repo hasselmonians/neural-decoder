@@ -25,6 +25,7 @@ methods
     self.spikeTimes   = CMBHOME.Utils.ContinuizeEpochs(root.cel_ts);
     self.spikeTrain   = NeuralDecoder.getSpikeTrain(self.spikeTimes, self.timestamps);
     self.Fs           = root.fs_video;
+    self.bandwidth    = 60;
     self.verbosity    = true;
   end % function
 
