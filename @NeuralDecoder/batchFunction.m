@@ -66,10 +66,12 @@ function batchFunction(index, location, batchname, outfile, test)
 
   %% Save the data
 
-  output = NaN(length(h), 2);
-  output(:, 1) = h(:);
-  output(1, 2) = kmax;
+  save(outfile, 'h', 'kmax', 'speed', 'best', 'neurodec')
 
-  writematrix(output, outfile);
+  % output = NaN(length(h), 2);
+  % output(:, 1) = h(:);
+  % output(1, 2) = kmax;
+  %
+  % writematrix(output, outfile);
 
 end % function
