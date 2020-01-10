@@ -13,9 +13,6 @@ test = true;
 % parameters
 params = readmatrix(outfile);
 
-% support of the kernel
-w = neurodec.getKernelSupport();
-
 % compute the kernel and transformed signal
 [~, ~, kernel, firing_rate] = neurodec.objective_function(speed, params);
 
@@ -23,7 +20,7 @@ w = neurodec.getKernelSupport();
 
 % plot the kernel as a function of lag time
 figure;
-plot(w, kernel);
+plot(neurodec.getKernelSupport(kernel), kernel);
 xlabel('lag (s)')
 ylabel('kernel')
 figlib.pretty('PlotBuffer', 0.1);
@@ -86,7 +83,8 @@ function [neurodec, speed] = batchFunction_test(index, location, batchname, outf
 
   % configure options
   options = optimoptions('particleswarm');
-  options.Display = 'off';
+  options.Display = 'iter';
+  options.InitialSwarmMatrix = [1, 10, 3, 10];
   options.UseParallel = true;
 
   % cost function should take only one argument, a vector of parameters
