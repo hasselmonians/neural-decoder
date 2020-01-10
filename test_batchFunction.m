@@ -50,7 +50,8 @@ function batchFunction_test(index, location, batchname, outfile, test)
   options.UseParallel = true;
 
   % cost function should take only one argument, a vector of parameters
-  fun = @(params) neurodec.optimize_EMG_kernel(speed, params);
+  % so create anonymous function and bind to variable
+  fun = @(params) objective_function(neurodec, speed, params);
   % lower bounds
   lb = [0, 0, 0, 0];
   % upper bounds
