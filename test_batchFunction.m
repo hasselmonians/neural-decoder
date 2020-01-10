@@ -28,6 +28,7 @@ function batchFunction_test(index, location, batchname, outfile, test)
   %% Read data
 
   [filename, cellnum] = RatCatcher.read(index, location, batchname);
+  filename = strrep(filename, 'projectnb', 'mnt'); % NOTE: remove in final version
 
   %% Load data
 
