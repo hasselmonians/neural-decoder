@@ -80,6 +80,7 @@ function [neurodec, speed] = batchFunction_test(index, location, batchname, outf
   %% Generate the Bandwidth Estimator
 
   neurodec = NeuralDecoder(root);
+  neurodec.bandwidth = 60; % s
 
   %% Particle swarm optimization
 
