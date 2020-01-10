@@ -66,7 +66,7 @@ function batchFunction(index, location, batchname, outfile, test)
 
   %% Save the data
 
-  save(outfile, 'h', 'kmax', 'speed', 'best', 'neurodec')
+  save([outfile(1:end-3), 'mat'], 'h', 'kmax', 'speed', 'best', 'neurodec')
 
   % output = NaN(length(h), 2);
   % output(:, 1) = h(:);
