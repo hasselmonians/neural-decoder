@@ -1,3 +1,9 @@
+
+% arguments
+index = 1;
+location = '/mnt/hasselmogrp/ahoyland/neural-decoder/cluster/';
+batchname = 'Caitlin-A-NeuralDecoder';
+
 % %% test the decoding algorithm
 %
 % %% Generate the validation data set
