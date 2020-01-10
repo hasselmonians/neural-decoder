@@ -39,7 +39,7 @@ figlib.pretty('PlotBuffer', 0.1);
 
 % plot the spike train and the firing rate estimate
 figure; hold on
-stem(neurodec.timestamps, neurodec.spiketrain, 'Marker', 'None', 'Color', [0 0 0])
+stem(neurodec.timestamps, neurodec.spikeTrain, 'Marker', 'None', 'Color', [0 0 0])
 plot(neurodec.timestamps, firing_rate, 'r');
 xlabel('time (s)')
 legend({'PSTH', 'firing rate'})
