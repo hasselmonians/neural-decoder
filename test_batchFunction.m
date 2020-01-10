@@ -6,35 +6,48 @@ batchname = 'Caitlin-A-NeuralDecoder';
 outfile = '/home/alec/code/neural-decoder/output-Caitlin-A-NeuralDecoder-1.csv';
 test = true;
 
-neurodec = batchFunction_test(index, location, batchname, outfile, test);
+[neurodec, speed] = batchFunction_test(index, location, batchname, outfile, test);
 
 %% test the decoding algorithm
 
 % parameters
-new_params = readmatrix(outfile);
+params = readmatrix(outfile);
 
 % support of the kernel
 w = neurodec.getKernelSupport();
 
 % compute the kernel and transformed signal
-[~, ~, new_kernel, new_transformed_signal] = neurodec.objective_function(raw_signal, new_params);
+[~, ~, kernel, firing_rate] = neurodec.objective_function(speed, params);
 
+%% visualize the results
+
+% plot the kernel as a function of lag time
 figure;
-subplot(1, 2, 1); hold on;
-plot(w, kernel, 'k')
-plot(w, new_kernel, 'r')
+plot(w, kernel);
+xlabel('lag (s)')
+ylabel('kernel')
+figlib.pretty('PlotBuffer', 0.1);
+
+% plot the speed and the firing rate estimate
+figure; hold on
+plot(neurodec.timestamps, rescale(speed), 'k');
+plot(neurodec.timestamps, rescale(firing_rate), 'r');
 xlabel('time (s)')
-title('kernels')
+ylabel('signal (a.u.)')
+legend({'speed', 'firing rate'});
+figlib.pretty('PlotBuffer', 0.1);
 
-subplot(1, 2, 2); hold on;
-plot(time, transformed_signal, 'k')
-plot(time, new_transformed_signal, 'r')
-
-figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1)
+% plot the spike train and the firing rate estimate
+figure; hold on
+stem(neurodec.timestamps, neurodec.spiketrain, 'Marker', 'None', 'Color', [0 0 0])
+plot(neurodec.timestamps, firing_rate, 'r');
+xlabel('time (s)')
+legend({'PSTH', 'firing rate'})
+figlib.pretty('PlotBuffer', 0.1);
 
 %% Functions
 
-function neurodec = batchFunction_test(index, location, batchname, outfile, test)
+function [neurodec, speed] = batchFunction_test(index, location, batchname, outfile, test)
   %% Preamble
 
   if nargin < 4
