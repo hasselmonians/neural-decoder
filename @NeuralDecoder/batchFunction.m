@@ -61,8 +61,8 @@ function batchFunction(index, location, batchname, outfile, test)
   % using the pseudo-inverse IRF approximation algorithm
   % Westwick & Kearney 2003, Ch. 5
 
-  nLags = ceil(neurodec.bandwidth * neurodec.Fs);
-  h = (1 / neurodec.Fs) * double(irf(iodata, 'nlags', nLags, 'mode', 'auto'));
+  % nLags = ceil(neurodec.bandwidth * neurodec.Fs);
+  h = (1 / neurodec.Fs) * double(irf(iodata, 'nlags', kmax, 'mode', 'auto'));
 
   %% Save the data
 
