@@ -72,3 +72,13 @@ box off
 
 xlabel('time (s)')
 figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
+
+%% Compute the log-likelihood
+
+neurodec = NeuralDecoder;
+neurodec.Fs = fs;
+neurodec.spikeTrain = spike_train;
+neurodec.timestamps = time;
+neurodec.verbosity = true;
+
+loglikelihood = neurodec.loglikelihood(transformed_signal)
