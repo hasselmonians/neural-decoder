@@ -38,9 +38,10 @@ function batchFunction(index, location, batchname, outfile, test)
   options = optimoptions('particleswarm');
   options.Display = 'off';
   options.UseParallel = true;
+  options.InitialSwarmMatrix = [1, 10, 3, 3];
 
   % cost function should take only one argument, a vector of parameters
-  fun = @(params) neurodec.optimize_EMG_kernel(speed, params);
+  fun = @(params) neurodec.objective_function(speed, params);
   % lower bounds
   lb = [0, 0, 0, 0];
   % upper bounds
