@@ -1,8 +1,8 @@
 r = RatCatcher;
 
 r.expID = {'Caitlin', 'A'; 'Caitlin', 'B'; 'Caitlin', 'C'; 'Caitlin', 'D'; 'Caitlin', 'E'; 'Caitlin', 'F'};
-r.remotepath = '/projectnb/hasselmogrp/ahoyland/neural-decoder/cluster/';
-r.localpath = '/mnt/hasselmogrp/ahoyland/neural-decoder/cluster/';
+r.remotepath = '/projectnb/hasselmogrp/ahoyland/neural-decoder/cluster-mean-zero/';
+r.localpath = '/mnt/hasselmogrp/ahoyland/neural-decoder/cluster-mean-zero/';
 r.protocol = 'NeuralDecoder';
 r.project = 'hasselmogrp';
 r.verbose = true;
