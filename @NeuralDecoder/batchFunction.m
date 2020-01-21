@@ -38,18 +38,18 @@ function batchFunction(index, location, batchname, outfile, test)
   options = optimoptions('particleswarm');
   options.Display = 'off';
   options.UseParallel = true;
-  options.InitialSwarmMatrix = [1, 10, 3, 3];
+  options.InitialSwarmMatrix = [1, 3, 3];
 
   % cost function should take only one argument, a vector of parameters
-  fun = @(params) neurodec.objective_function(speed, params);
+  fun = @(params) neurodec.objective_function(speed, [params(1), 0, params(2:3)]);
   % lower bounds
-  lb = [0, 0, 0, 0];
+  lb = [0, 0, 0];
   % upper bounds
-  ub = [100, 100, 100, 100];
-  [params, fval, exitflag, output] = particleswarm(fun, 4, lb, ub, options);
+  ub = [100, 100, 100];
+  [params, fval, exitflag, output] = particleswarm(fun, 3, lb, ub, options);
 
   %% Save the data
 
-  writematrix(params, outfile);
+  writematrix([params(1), 0, params(2:3)], outfile);
 
 end % function
