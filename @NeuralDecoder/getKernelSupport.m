@@ -5,8 +5,10 @@ function kernel_support = getKernelSupport(self, kernel)
 
   if nargin < 2
     kernel_support = colon(0, 1 / self.Fs, self.bandwidth);
-  else
+  elseif isscalar(kernel)
     kernel_support = 1 / self.Fs * colon(0, 1, kernel);
+  else
+    kernel_support = 1 / self.Fs * colon(0, 1, length(kernel));
   end
 
 end % function
