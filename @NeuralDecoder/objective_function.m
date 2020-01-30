@@ -39,7 +39,7 @@ function [objective, logL, kernel, transformed_signal] = objective_function(self
   end
 
   % fix log(0) problem
-  transformed_signal(transformed_signal < 1e-5) = 1e-5;
+  transformed_signal(transformed_signal < eps) = eps;
 
   %% Compute the log-likelihood
   % of the transformed signal producing the given spike train
