@@ -32,4 +32,4 @@ mu      = rand_params(:, 2);
 sigma   = rand_params(:, 3);
 tau     = rand_params(:, 4);
 
-data_table = table(alpha, mu, sigma, logL, objective);
+data_table = table(alpha, mu, sigma, tau, logL, objective);
