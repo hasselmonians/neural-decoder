@@ -5,21 +5,23 @@
 
 %% Generate the true data
 
-[neurodec, firing_rate_estimate, signal] = generateSampleData();
+options = generateSampleData();
+[firing_rate_estimate, neurodec, signal] = generateSampleData(options);
 
 %% Sample the parameters
-
-% output variables
-params = NaN(nSims, 4);
-objective = NaN(nSims, 1);
-logL = NaN(nSims, 1);
 
 % useful variables
 nSims = 100;
 rand_params = randi(100, 100, 4);
 w = neurodec.getKernelSupport();
 
+% output variables
+params = NaN(nSims, 4);
+objective = NaN(nSims, 1);
+logL = NaN(nSims, 1);
+
 for ii = 1:nSims
+    corelib.textbar(ii, nSims)
   [objective(ii), logL(ii)] = objective_function(neurodec, signal, rand_params(ii, :));
 end
 

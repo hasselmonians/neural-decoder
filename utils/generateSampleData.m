@@ -9,7 +9,7 @@ function varargout = generateSampleData(varargin)
   % instantiate options
   options = struct;
   options.dt = 1 / 30;
-  options.Timestamps = 0:dt:100;
+  options.Timestamps = 0:options.dt:100;
   options.Bandwidth = 60;
   options.Verbosity = true;
   signal = 5 * rectpuls(options.Timestamps - options.Timestamps(1) - 50, 0.5/options.dt);
@@ -26,28 +26,28 @@ function varargout = generateSampleData(varargin)
 
   %% Instantiate a NeuralDecoder object
 
-  corelib.verb('NeuralDecoder/generateSampleData', 'instantiating a NeuralDecoder object')
+  corelib.verb(options.Verbosity, 'NeuralDecoder/generateSampleData', 'instantiating a NeuralDecoder object')
 
   neurodec = NeuralDecoder();
-  neurodec.Fs = 1 / options.Fs;
+  neurodec.Fs = 1 / options.dt;
   neurodec.bandwidth = options.Bandwidth;
   neurodec.timestamps = options.Timestamps;
   neurodec.verbosity = options.Verbosity;
 
   %% Generate a known kernel
 
-  corelib.verb('NeuralDecoder/generateSampleData', 'generating a known kernel')
+  corelib.verb(options.Verbosity, 'NeuralDecoder/generateSampleData', 'generating a known kernel')
 
   w = neurodec.getKernelSupport();
   neurodec.kernel = exgauss_kernel(w, options.Params);
 
   % truncate the kernel to an arbitrary cutoff, then renormalize
   % this is to make the convolutions faster
-  neurodec.kernel = params(1) * truncate_kernel(neurodec.kernel, 'Cutoff', 0.01, 'Normalize', true, 'Verbosity', options.Verbosity);
+  neurodec.kernel = options.Params(1) * truncate_kernel(neurodec.kernel, 'Cutoff', 0.01, 'Normalize', true, 'Verbosity', options.Verbosity);
 
   %% Perform the encoding
 
-  corelib.verb('NeuralDecoder/generateSampleData', 'performing the encoding')
+  corelib.verb(options.Verbosity, 'NeuralDecoder/generateSampleData', 'performing the encoding')
 
   % convolve the signal and the kernel. snip to correct size
   firing_rate_estimate = neurodec.encode(options.Signal, neurodec.kernel);
