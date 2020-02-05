@@ -15,8 +15,9 @@ nSims = 100;
 rand_params = randi(100, 100, 4);
 w = neurodec.getKernelSupport();
 
-% only examine three parameters (ignore alpha)
+% only examine two parameters (ignore alpha and mu)
 rand_params(:, 1) = options.Params(1);
+rand_params(:, 2) = options.Params(2);
 
 % output variables
 params = NaN(nSims, 4);
