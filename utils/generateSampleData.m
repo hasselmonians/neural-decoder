@@ -1,6 +1,7 @@
 function varargout = generateSampleData(varargin)
 
   % [options] = generateSampleData();
+  % [firing_rate_estimate, neurodec] = generateSampleData();
   % [firing_rate_estimate, neurodec] = generateSampleData('Name', value, 'Name', value, ...);
 
   % generates a neural decoder object,
