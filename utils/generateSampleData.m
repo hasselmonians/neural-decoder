@@ -16,7 +16,7 @@ function varargout = generateSampleData(varargin)
   options.Signal = signal;
   options.Params = [5, 10, 3, 10];
 
-  if nargout && ~nargin
+  if nargout==1 && ~nargin
     varargout{1} = options;
     return
   end
