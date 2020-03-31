@@ -15,8 +15,8 @@ nSamples = 5;
 
 % create a matrix of integral exponents
 exponents = linspace(-2, 2, nSamples);
-these_combinations = nchoosek(nSamples, 2);
-nSims = length(these_combinations);
+exp_matrix = nchoosek(exponents, 2);
+nSims = length(exp_matrix);
 
 % create an input vector
 these_params = NaN(nSims, 4);
@@ -26,8 +26,8 @@ these_params(:, 1) = options.Params(1);
 these_params(:, 2) = options.Params(2);
 
 % tile a log-spaced domain in terms of Params(3) and Params(4)
-these_params(:, 3) = options.Params(3) ^ exps(these_combinations(:, 1));
-these_params(:, 3) = options.Params(4) ^ exps(these_combinations(:, 2));
+these_params(:, 3) = options.Params(3) ^ exp_matrix(:, 1);
+these_params(:, 3) = options.Params(4) ^ exp_matrix(:, 2);
 
 % output variables
 objective = NaN(nSims, 1);
