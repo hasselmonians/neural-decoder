@@ -15,7 +15,7 @@ nSamples = 5;
 
 % create a matrix of integral exponents
 exponents = linspace(-2, 2, nSamples);
-exp_matrix = nchoosek(exponents, 2);
+exp_matrix = permn(exponents, 2);
 nSims = length(exp_matrix);
 
 % create an input vector
