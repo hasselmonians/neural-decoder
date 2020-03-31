@@ -10,29 +10,33 @@ options = generateSampleData();
 
 %% Sample the parameters
 
-% useful variables
+% determine the number of simulations
 nSamples = 5;
-nSims = nSamples * nSamples;
+
+% create a matrix of integral exponents
+exponents = linspace(-2, 2, nSamples);
+these_combinations = nchoosek(nSamples, 2);
+nSims = length(these_combinations);
+
+% create an input vector
 these_params = NaN(nSims, 4);
-w = neurodec.getKernelSupport();
 
 % only examine two parameters (ignore alpha and mu)
 these_params(:, 1) = options.Params(1);
 these_params(:, 2) = options.Params(2);
 
 % tile a log-spaced domain in terms of Params(3) and Params(4)
-exps = linspace(-2, 2, nSamples);
-these_combinations = nchoosek(nSamples, 2);
 these_params(:, 3) = options.Params(3) ^ exps(these_combinations(:, 1));
 these_params(:, 3) = options.Params(4) ^ exps(these_combinations(:, 2));
 
 % output variables
-params = NaN(nSims, 4);
 objective = NaN(nSims, 1);
 logL = NaN(nSims, 1);
 
+%% Main loop
+
 for ii = 1:nSims
-    corelib.textbar(ii, nSims)
+  corelib.textbar(ii, nSims)
   [objective(ii), logL(ii)] = objective_function(neurodec, signal, these_params(ii, :));
 end
 
