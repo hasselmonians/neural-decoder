@@ -3,14 +3,15 @@
 %% Generate some fake data
 
 % generate time vector
-total_time = 60; % seconds
+total_time = 300; % seconds
 fs = 50; % Hz
 time = colon(0, 1/fs, total_time); % seconds
 
 % generate an observable signal
 % raw_signal = 25 + 25 * sin(2*pi / (10) * time);
 % raw_signal = 25 + 25 * square(2 * pi / 20 * time);
-raw_signal = 5 + 20 * rectpuls(time - 30, 10);
+% raw_signal = 5 + 20 * rectpuls(time - 30, 10);
+raw_signal = 5 + randn(length(time), 1);
 
 %% Produce an exponentially-modified Gaussian kernel
 
