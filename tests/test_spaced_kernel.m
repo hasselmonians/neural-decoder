@@ -22,7 +22,7 @@ these_params(:, 2) = options.Params(2);
 
 % tile a log-spaced domain in terms of Params(3) and Params(4)
 exps = linspace(-2, 2, nSamples);
-these_combinations = nchoosek(nSamples);
+these_combinations = nchoosek(nSamples, 2);
 these_params(:, 3) = options.Params(3) ^ exps(these_combinations(:, 1));
 these_params(:, 3) = options.Params(4) ^ exps(these_combinations(:, 2));
 
