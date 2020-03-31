@@ -27,7 +27,7 @@ these_params(:, 2) = options.Params(2);
 
 % tile a log-spaced domain in terms of Params(3) and Params(4)
 these_params(:, 3) = options.Params(3) .^ exp_matrix(:, 1);
-these_params(:, 3) = options.Params(4) .^ exp_matrix(:, 2);
+these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2);
 
 % output variables
 objective = NaN(nSims, 1);
