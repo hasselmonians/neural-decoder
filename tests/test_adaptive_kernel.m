@@ -1,7 +1,8 @@
-%% test_rand_kernel.m
+%% test_adaptive_kernel.m
 % Use a test signal and known kernel parameters.
 % Sample many parameters and compute the log likelihood
 % as defined by the cost function.
+% TODO: debug this
 
 %% Generate the true data
 
