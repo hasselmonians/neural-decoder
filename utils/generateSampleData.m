@@ -45,7 +45,10 @@ function varargout = generateSampleData(varargin)
 
   % truncate the kernel to an arbitrary cutoff, then renormalize
   % this is to make the convolutions faster
-  neurodec.kernel = options.Params(1) * truncate_kernel(neurodec.kernel, 'Cutoff', 0.01, 'Normalize', true, 'Verbosity', options.Verbosity);
+  neurodec.kernel = options.Params(1) * truncate_kernel(neurodec.kernel, ...
+    'Cutoff', 0.01, ...
+    'Normalize', true, ...
+    'Verbosity', options.Verbosity);
 
   %% Perform the encoding
 
