@@ -16,11 +16,18 @@ a.Lower = [0, 0];
 a.Upper = [100, 100];
 a.SampleFcn = @(params) neurodec.objective_function(signal, params);
 
-% %% Output
-%
-% alpha   = rand_params(:, 1);
-% mu      = rand_params(:, 2);
-% sigma   = rand_params(:, 3);
-% tau     = rand_params(:, 4);
-%
-% data_table = table(alpha, mu, sigma, tau, logL, objective);
+%% Output
+
+% generate a figure
+figure('outerposition',[300 300 601 600],'PaperUnits','points','PaperSize',[601 600]); hold on
+a.PlotHere = gca;
+
+figlib.pretty('LineWidth',1)
+
+xlabel('\sigma')
+ylabel('\tau')
+c = colorbar;
+c.Label.String = 'objective';
+
+% perform the sampling and plot onto the created figure
+a.sample();
