@@ -35,7 +35,7 @@ logL = NaN(nSims, 1);
 
 %% Main loop
 
-parfor ii = 1:nSims
+for ii = 1:nSims
   corelib.textbar(ii, nSims)
   [objective(ii), logL(ii)] = objective_function(neurodec, signal, these_params(ii, :));
 end
