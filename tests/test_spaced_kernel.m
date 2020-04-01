@@ -11,10 +11,10 @@ options = generateSampleData();
 %% Sample the parameters
 
 % determine the number of simulations
-nSamples = 5;
+nSamples = 19;
 
 % create a matrix of integral exponents
-exponents = linspace(-2, 2, nSamples);
+exponents = linspace(-4, 4, nSamples);
 exp_matrix = permn(exponents, 2);
 nSims = length(exp_matrix);
 
@@ -35,7 +35,7 @@ logL = NaN(nSims, 1);
 
 %% Main loop
 
-for ii = 1:nSims
+parfor ii = 1:nSims
   corelib.textbar(ii, nSims)
   [objective(ii), logL(ii)] = objective_function(neurodec, signal, these_params(ii, :));
 end
