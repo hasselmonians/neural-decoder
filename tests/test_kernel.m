@@ -10,15 +10,16 @@ time = colon(0, 1/fs, total_time); % seconds
 % generate an observable signal
 % raw_signal = 25 + 25 * sin(2*pi / (10) * time);
 % raw_signal = 25 + 25 * square(2 * pi / 20 * time);
-% raw_signal = 5 + 20 * rectpuls(time - 30, 10);
 % raw_signal = 5 + randn(length(time), 1);
-raw_signal = 5 + 20 * tripuls(time - 150, 100);
+raw_signal = 0 + 40 * tripuls(time - 150, 100);
+raw_signal = raw_signal + 40 * rectpuls(time - 30, 10);
+raw_signal = raw_signal + 20 * rectpuls(time - 45, 10);
 
 %% Produce an exponentially-modified Gaussian kernel
 
-bandwidth = 15; % seconds
+bandwidth = 40; % seconds
 w = colon(0, 1/fs, bandwidth); % seconds
-params = [0.2, 3, sqrt(3), 0.1];
+params = [0.2, 10, sqrt(3), 10];
 kernel = exgauss_kernel(w, params);
 
 %% Plot the fake data and the kernel
