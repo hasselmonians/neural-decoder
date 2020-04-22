@@ -11,7 +11,8 @@ time = colon(0, 1/fs, total_time); % seconds
 % raw_signal = 25 + 25 * sin(2*pi / (10) * time);
 % raw_signal = 25 + 25 * square(2 * pi / 20 * time);
 % raw_signal = 5 + 20 * rectpuls(time - 30, 10);
-raw_signal = 5 + randn(length(time), 1);
+% raw_signal = 5 + randn(length(time), 1);
+raw_signal = 5 + 20 * tripuls(time - 150, 100);
 
 %% Produce an exponentially-modified Gaussian kernel
 
