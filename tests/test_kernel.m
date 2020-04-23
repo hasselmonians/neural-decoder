@@ -57,21 +57,18 @@ figure;
 
 % plot the raw signal
 ax(1) = subplot(3, 1, 1);
-title('raw signal')
 plot(time, raw_signal, 'k')
 ylabel('animal running speed (cm/s)')
 box off
 
 % plot the transformed signal
 ax(2) = subplot(3, 1, 2);
-title('transformed signal')
 plot(time, transformed_signal, 'k')
 box off
 ylabel('firing rate (Hz)')
 
 % plot the spike train
 ax(3) = subplot(3, 1, 3);
-title('sample spike train')
 stem(time, spike_train, 'Marker', 'None', 'Color', [0 0 0])
 ylabel('# spikes')
 box off
@@ -80,6 +77,10 @@ xlabel('time (s)')
 linkaxes(ax, 'x');
 figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
 
+% label the plots
+title(ax(1), 'raw signal')
+title(ax(2), 'transformed signal')
+title(ax(3), 'sample spike train')
 
 % %% Compute the log-likelihood
 %
