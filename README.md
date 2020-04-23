@@ -22,7 +22,7 @@ by a latent signal (the firing rate, or transformed signal).
 raw signal -> transformed signal -> spike train
 ```
 
-### Linear transformation
+### Transforming the raw signal
 The relationship between the raw signal and the transformed signal
 is defined by a convolution with an
 [exponentially-modified Gaussian kernel](https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution).
