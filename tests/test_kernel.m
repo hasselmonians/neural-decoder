@@ -10,14 +10,16 @@ time = colon(0, 1/fs, total_time); % seconds
 % generate an observable signal
 % raw_signal = 25 + 25 * sin(2*pi / (10) * time);
 % raw_signal = 25 + 25 * square(2 * pi / 20 * time);
-% raw_signal = 5 + 20 * rectpuls(time - 30, 10);
-raw_signal = 5 + randn(length(time), 1);
+% raw_signal = 5 + randn(length(time), 1);
+raw_signal = 0 + 40 * tripuls(time - 150, 100);
+raw_signal = raw_signal + 40 * rectpuls(time - 30, 10);
+raw_signal = raw_signal + 20 * rectpuls(time - 45, 10);
 
 %% Produce an exponentially-modified Gaussian kernel
 
-bandwidth = 15; % seconds
+bandwidth = 40; % seconds
 w = colon(0, 1/fs, bandwidth); % seconds
-params = [0.2, 3, sqrt(3), 0.1];
+params = [0.2, 10, sqrt(3), 10];
 kernel = exgauss_kernel(w, params);
 
 %% Plot the fake data and the kernel
@@ -54,32 +56,38 @@ spike_train = poissrnd(transformed_signal / fs);
 figure;
 
 % plot the raw signal
-subplot(3, 1, 1);
+ax(1) = subplot(3, 1, 1);
 plot(time, raw_signal, 'k')
 ylabel('animal running speed (cm/s)')
 box off
 
 % plot the transformed signal
-subplot(3, 1, 2)
+ax(2) = subplot(3, 1, 2);
 plot(time, transformed_signal, 'k')
 box off
 ylabel('firing rate (Hz)')
 
 % plot the spike train
-subplot(3, 1, 3)
+ax(3) = subplot(3, 1, 3);
 stem(time, spike_train, 'Marker', 'None', 'Color', [0 0 0])
 ylabel('# spikes')
 box off
 
 xlabel('time (s)')
+linkaxes(ax, 'x');
 figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
 
-%% Compute the log-likelihood
+% label the plots
+title(ax(1), 'raw signal')
+title(ax(2), 'transformed signal')
+title(ax(3), 'sample spike train')
 
-neurodec = NeuralDecoder;
-neurodec.Fs = fs;
-neurodec.spikeTrain = spike_train;
-neurodec.timestamps = time;
-neurodec.verbosity = true;
-
-loglikelihood = neurodec.loglikelihood(transformed_signal)
+% %% Compute the log-likelihood
+%
+% neurodec = NeuralDecoder;
+% neurodec.Fs = fs;
+% neurodec.spikeTrain = spike_train;
+% neurodec.timestamps = time;
+% neurodec.verbosity = true;
+%
+% loglikelihood = neurodec.loglikelihood(transformed_signal)

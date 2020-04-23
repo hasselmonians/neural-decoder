@@ -275,6 +275,7 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
-# ignore cluster and data directories
+# ignore cluster, figures, and data directories
 cluster/*
 data/*
+figures/*
