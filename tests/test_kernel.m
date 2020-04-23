@@ -56,32 +56,37 @@ spike_train = poissrnd(transformed_signal / fs);
 figure;
 
 % plot the raw signal
-subplot(3, 1, 1);
+ax(1) = subplot(3, 1, 1);
+title('raw signal')
 plot(time, raw_signal, 'k')
 ylabel('animal running speed (cm/s)')
 box off
 
 % plot the transformed signal
-subplot(3, 1, 2)
+ax(2) = subplot(3, 1, 2);
+title('transformed signal')
 plot(time, transformed_signal, 'k')
 box off
 ylabel('firing rate (Hz)')
 
 % plot the spike train
-subplot(3, 1, 3)
+ax(3) = subplot(3, 1, 3);
+title('sample spike train')
 stem(time, spike_train, 'Marker', 'None', 'Color', [0 0 0])
 ylabel('# spikes')
 box off
 
 xlabel('time (s)')
+linkaxes(ax, 'x');
 figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
 
-%% Compute the log-likelihood
 
-neurodec = NeuralDecoder;
-neurodec.Fs = fs;
-neurodec.spikeTrain = spike_train;
-neurodec.timestamps = time;
-neurodec.verbosity = true;
-
-loglikelihood = neurodec.loglikelihood(transformed_signal)
+% %% Compute the log-likelihood
+%
+% neurodec = NeuralDecoder;
+% neurodec.Fs = fs;
+% neurodec.spikeTrain = spike_train;
+% neurodec.timestamps = time;
+% neurodec.verbosity = true;
+%
+% loglikelihood = neurodec.loglikelihood(transformed_signal)
