@@ -22,7 +22,7 @@ function L = loglikelihood(self, rate)
   % check to make sure that the rate is nonzero everywhere
   % this prevents log(0) errors
   if any(rate == 0)
-    corelib.verb(self.verbose, 'NeuralDecoder::loglikelihood', ...
+    corelib.verb(self.verbosity, 'NeuralDecoder::loglikelihood', ...
       'rate is zero somewhere, setting to ''eps''')
     rate(rate == 0) = eps;
   end
