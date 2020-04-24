@@ -5,15 +5,27 @@
 %
 %% Arguments:
 %   self: a NeuralDecoder object
-%   rate: an estimate for the underlying firing rate
-%     this is a vector probably computed by kconv
+%   rate: a positive, real numerical vector,
+%     an estimate for the underlying firing rate,
+%     probably computed by NeuralDecoder.encode
 %
 %% Outputs:
 %   L: the loglikelihood as a scalar
 %
-% See Also: NeuralDecoder.kernelCore, NeuralDecoder.cvKernel
+% See Also: NeuralDecoder.encode, NeuralDecoder.objective
 
 function L = loglikelihood(self, rate)
+
+  % check to make sure the rate is real
+  assert(all(isreal(rate)), 'rate must be a vector of positive, real numbers');
+
+  % check to make sure that the rate is nonzero everywhere
+  % this prevents log(0) errors
+  if any(rate == 0)
+    corelib.verb(self.verbosity, 'NeuralDecoder::loglikelihood', ...
+      'rate is zero somewhere, setting to ''eps''')
+    rate(rate == 0) = eps;
+  end
 
   dt = 1 / self.Fs;
 

@@ -1,23 +1,42 @@
 function varargout = generateSampleData(varargin)
 
-  % [options] = generateSampleData();
-  % [firing_rate_estimate, neurodec] = generateSampleData();
-  % [firing_rate_estimate, neurodec] = generateSampleData(options);
-  % [firing_rate_estimate, neurodec] = generateSampleData('Name', value, 'Name', value, ...);
+  %% Description
+  %   Generates a NeuralDecoder object, a kernel, and an encoded signal.
+  %
+  %% Arguments:
+  %   options: a struct of options, or name-value pairs
+  %     Bandwidth: numerical scalar, length of kernel, default: XX
+  %     dt: numerical scalar, the time-step, default: XX
+  %     Params: numerical vector, 1x4 vector containing [alpha, mu, sigma, tau] parameters
+  %     Signal: numerical vector, signal to be encoded, default: XX
+  %     Timestamps: numerical vector, vector of time stamps, default: XX
+  %     Verbosity: logical scalar, print info text, default: XX
+  %
+  %% Outputs:
+  %   firing_rate_estimate: numerical vector, the signal encoded by transformation with the kernel
+  %   neurodec: NeuralDecoder object
+  %   options: the structure containing the parsed options
+  %
+  %% Examples
+  %   [options] = generateSampleData();
+  %   [firing_rate_estimate, neurodec, options] = generateSampleData();
+  %   [firing_rate_estimate, neurodec, options] = generateSampleData(options);
+  %   [firing_rate_estimate, neurodec, options] = generateSampleData('Name', value, 'Name', value, ...);
+  %
+  %% See Also: generateRawData
 
-  % generates a neural decoder object,
-  % a kernel, and an encoded signal
+  %% Preamble
 
   % instantiate options
-  options = struct;
-  options.dt = 1 / 30;
-  options.Timestamps = 0:options.dt:100;
-  options.Bandwidth = 60;
-  options.Verbosity = true;
-  signal = 5 * rectpuls(options.Timestamps - options.Timestamps(1) - 50, 0.5/options.dt);
-  options.Signal = signal;
-  options.Params = [5, 10, 3, 10];
+  options             = struct;
+  options.Bandwidth   = 40;
+  options.dt          = 1 / 50;
+  options.Params      = [0.2, 10, sqrt(3), 10];
+  options.Signal      = generateRawData();
+  options.Timestamps  = 0:options.dt:300;
+  options.Verbosity   = true;
 
+  % if no arguments and one output, output options structure
   if nargout==1 && ~nargin
     varargout{1} = options;
     return
@@ -40,12 +59,10 @@ function varargout = generateSampleData(varargin)
 
   corelib.verb(options.Verbosity, 'NeuralDecoder/generateSampleData', 'generating a known kernel')
 
-  w = neurodec.getKernelSupport();
-  neurodec.kernel = exgauss_kernel(w, options.Params);
-
   % truncate the kernel to an arbitrary cutoff, then renormalize
   % this is to make the convolutions faster
-  neurodec.kernel = options.Params(1) * truncate_kernel(neurodec.kernel, ...
+  w = neurodec.getKernelSupport();
+  neurodec.kernel = options.Params(1) * truncate_kernel(exgauss_kernel(w, options.Params), ...
     'Cutoff', 0.01, ...
     'Normalize', true, ...
     'Verbosity', options.Verbosity);
@@ -66,4 +83,4 @@ function varargout = generateSampleData(varargin)
 
   varargout{1} = firing_rate_estimate;
   varargout{2} = neurodec;
-  varargout{3} = options.Signal;
+  varargout{3} = options;
