@@ -24,8 +24,8 @@ these_params = NaN(nSims, 4);
 % tile a log-spaced domain in terms of mu and tau
 % only explore two parameters (ignore alpha and sigma)
 these_params(:, 1) = options.Params(1); % alpha
-these_params(:, 3) = options.Params(2) .^ exp_matrix(:, 1); % mu
-these_params(:, 2) = options.Params(3); % sigma
+these_params(:, 2) = options.Params(2) .^ exp_matrix(:, 1); % mu
+these_params(:, 3) = options.Params(3); % sigma
 these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2); % tau
 
 % output variables
