@@ -14,7 +14,7 @@ options = generateSampleData();
 nSamples = 19;
 
 % create a matrix of integral exponents
-exponents = linspace(-4, 4, nSamples);
+exponents = linspace(-3, 3, 13);
 exp_matrix = permn(exponents, 2);
 nSims = length(exp_matrix);
 
