@@ -6,7 +6,7 @@
 %% Generate the true data
 
 options = generateSampleData();
-[firing_rate_estimate, neurodec, signal] = generateSampleData(options);
+[firing_rate_estimate, neurodec, options] = generateSampleData(options);
 
 %% Sample the parameters
 
@@ -21,17 +21,18 @@ nSims = length(exp_matrix);
 % create an input vector
 these_params = NaN(nSims, 4);
 
-% only examine two parameters (ignore alpha and mu)
-these_params(:, 1) = options.Params(1);
-these_params(:, 2) = options.Params(2);
-
-% tile a log-spaced domain in terms of Params(3) and Params(4)
-these_params(:, 3) = options.Params(3) .^ exp_matrix(:, 1);
-these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2);
+% tile a log-spaced domain in terms of mu and tau
+% only explore two parameters (ignore alpha and sigma)
+these_params(:, 1) = options.Params(1); % alpha
+these_params(:, 3) = options.Params(2) .^ exp_matrix(:, 1); % mu
+these_params(:, 2) = options.Params(3); % sigma
+these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2); % tau
 
 % output variables
 objective = NaN(nSims, 1);
 logL = NaN(nSims, 1);
+
+return
 
 %% Main loop
 
