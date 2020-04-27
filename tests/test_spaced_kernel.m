@@ -29,16 +29,14 @@ these_params(:, 3) = options.Params(3); % sigma
 these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2); % tau
 
 % output variables
-objective = NaN(nSims, 1);
+cost = NaN(nSims, 1);
 logL = NaN(nSims, 1);
-
-return
 
 %% Main loop
 
 for ii = 1:nSims
   corelib.textbar(ii, nSims)
-  [objective(ii), logL(ii)] = objective_function(neurodec, signal, these_params(ii, :));
+  [cost(ii), logL(ii)] = objective(neurodec, signal, these_params(ii, :));
 end
 
 %% Output
@@ -48,4 +46,4 @@ mu      = these_params(:, 2);
 sigma   = these_params(:, 3);
 tau     = these_params(:, 4);
 
-data_table = table(alpha, mu, sigma, tau, logL, objective);
+data_table = table(alpha, mu, sigma, tau, logL, cost);
