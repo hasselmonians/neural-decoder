@@ -36,7 +36,7 @@ logL = NaN(nSims, 1);
 
 for ii = 1:nSims
   corelib.textbar(ii, nSims)
-  [cost(ii), logL(ii)] = objective(neurodec, signal, these_params(ii, :));
+  [cost(ii), logL(ii)] = objective(neurodec, options.Signal, these_params(ii, :));
 end
 
 %% Output
