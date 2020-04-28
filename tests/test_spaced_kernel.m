@@ -6,6 +6,9 @@
 % path to where data should be saved
 data_path = fullfile(pathlib.strip(mfilename('fullpath'), 2), 'data', 'test_spaced_kernel.mat');
 
+% structure of default options
+options = generateSampleData();
+
 % check to see if file exists
 if exist(data_path, 'file')
   load(data_path)
@@ -13,7 +16,6 @@ else
 
   %% Generate the true data
 
-  options = generateSampleData();
   [firing_rate_estimate, neurodec, options] = generateSampleData(options);
 
   %% Sample the parameters
@@ -60,3 +62,21 @@ else
 
   save(data_path, 'data_table');
 end % if/else
+
+%% Visualize
+
+% runs where the cost is too high are invalid
+data_table.cost(data_table.cost >= 1e9) = NaN;
+
+% plot a heatmap
+heatmap(data_table, 'mu', 'tau', 'ColorVariable', 'cost');
+
+%% Test
+
+[~, B] = min(data_table.cost)
+
+disp('Parameters used to generate the data:')
+disp(options.Params)
+
+disp('Parameters which maximize the log-likelihood:')
+disp(data_table(B, :))
