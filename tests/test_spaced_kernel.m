@@ -73,7 +73,7 @@ heatmap(data_table, 'mu', 'tau', 'ColorVariable', 'cost');
 
 %% Test
 
-[~, B] = min(data_table.cost)
+[~, B] = min(data_table.cost);
 
 disp('Parameters used to generate the data:')
 disp(options.Params)
