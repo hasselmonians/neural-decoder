@@ -21,7 +21,18 @@ function [my_data] = test_objective()
         'VariableNames', {'likelihood', 'loglikelihood', 'objective'});
 
     % plot the results
-    figure; plot(my_data.loglikelihood, my_data.objective);
+    figure; plot(my_data.loglikelihood, my_data.objective, 'ok');
+    xlabel('log-likelihood')
+    ylabel('objective value')
+    title('objective approaches zero for increasing likelihood')
+    figlib.pretty('PlotBuffer', 0.2)
+
+    % plot the results
+    figure; plot(my_data.loglikelihood, my_data.objective, 'ok');
+    xlabel('log-likelihood')
+    ylabel('objective value')
+    set(gca, 'YScale', 'log')
+    title('objective approaches zero for increasing likelihood')
     figlib.pretty('PlotBuffer', 0.2)
 
     function y = cost(x)

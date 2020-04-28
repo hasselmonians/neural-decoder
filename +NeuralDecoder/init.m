@@ -13,6 +13,8 @@ function init(isCluster)
         addpath /projectnb/hasselmogrp/ahoyland/scripts
         addpath /projectnb/hasselmogrp/ahoyland/srinivas.gs_mtools
         addpath /projectnb/hasselmogrp/ahoyland/ex-gaussian
+        addpath /projectnb/hasselmogrp/ahoyland/neural-decoder
+        addpath /projectnb/hasselmogrp/ahoyland/neural-decoder/utils
     else
         addpath(code_dir)
         addpath(fullfile(code_dir, 'srinivas.gs_mtools'))

@@ -67,6 +67,27 @@ as the generating function of a non-homogeneous Poisson process.
 
 ![test_kernel](https://user-images.githubusercontent.com/30243182/80112765-77615700-854f-11ea-9023-f8916a25f112.png)
 
+### The objective function
+
+The quality of the fit of the kernel is evaluated by an objective function,
+which maps the four parameters to a real, positive scalar value
+called the objective or the cost.
+A "good" objective is as close to zero as possible.
+
+The objective function used here is intimately related
+to the log-likelihood of the given spike train having been generated
+by a Poisson process with inhomogeneous rate function equal to
+the raw signal transformed by the kernel with given parameters.
+
+The relationship between objective function and log-likelihood
+is shown below.
+Importantly, the objective function is monotonically decreasing
+with respect to increasing log-likelihood.
+
+![](https://user-images.githubusercontent.com/30243182/80385982-c6232f80-8874-11ea-9754-8b89dc6e4261.png)
+
+![](https://user-images.githubusercontent.com/30243182/80387252-6b8ad300-8876-11ea-8bac-cc17c96bbf76.png)
+
 <!-- ## Step 1: Collect the raw data
 
 The raw data is in the form of `CMBHOME.Session` objects.
