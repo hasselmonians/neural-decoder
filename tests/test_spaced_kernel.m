@@ -2,6 +2,7 @@
 % Use a test signal and known kernel parameters.
 % Sample many parameters and compute the log likelihood
 % as defined by the cost function.
+% Sample according to a logarithmically spaced grid.
 
 % path to where data should be saved
 data_path = fullfile(pathlib.strip(mfilename('fullpath'), 2), 'data', 'test_spaced_kernel.mat');
