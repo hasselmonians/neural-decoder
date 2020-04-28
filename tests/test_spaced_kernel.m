@@ -3,47 +3,60 @@
 % Sample many parameters and compute the log likelihood
 % as defined by the cost function.
 
-%% Generate the true data
+% path to where data should be saved
+data_path = fullfile(pathlib.strip(mfilename('fullpath'), 2), 'data', 'test_spaced_kernel.mat');
 
-options = generateSampleData();
-[firing_rate_estimate, neurodec, options] = generateSampleData(options);
+% check to see if file exists
+if exist(data_path, 'file')
+  load(data_path)
+else
 
-%% Sample the parameters
+  %% Generate the true data
 
-% determine the number of simulations
-nSamples = 19;
+  options = generateSampleData();
+  [firing_rate_estimate, neurodec, options] = generateSampleData(options);
 
-% create a matrix of integral exponents
-exponents = linspace(-3, 3, 13);
-exp_matrix = permn(exponents, 2);
-nSims = length(exp_matrix);
+  %% Sample the parameters
 
-% create an input vector
-these_params = NaN(nSims, 4);
+  % determine the number of simulations
+  nSamples = 19;
 
-% tile a log-spaced domain in terms of mu and tau
-% only explore two parameters (ignore alpha and sigma)
-these_params(:, 1) = options.Params(1); % alpha
-these_params(:, 2) = options.Params(2) .^ exp_matrix(:, 1); % mu
-these_params(:, 3) = options.Params(3); % sigma
-these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2); % tau
+  % create a matrix of integral exponents
+  exponents = linspace(-3, 3, 13);
+  exp_matrix = permn(exponents, 2);
+  nSims = length(exp_matrix);
 
-% output variables
-cost = NaN(nSims, 1);
-logL = NaN(nSims, 1);
+  % create an input vector
+  these_params = NaN(nSims, 4);
 
-%% Main loop
+  % tile a log-spaced domain in terms of mu and tau
+  % only explore two parameters (ignore alpha and sigma)
+  these_params(:, 1) = options.Params(1); % alpha
+  these_params(:, 2) = options.Params(2) .^ exp_matrix(:, 1); % mu
+  these_params(:, 3) = options.Params(3); % sigma
+  these_params(:, 4) = options.Params(4) .^ exp_matrix(:, 2); % tau
 
-for ii = 1:nSims
-  corelib.textbar(ii, nSims)
-  [cost(ii), logL(ii)] = objective(neurodec, options.Signal, these_params(ii, :));
-end
+  % output variables
+  cost = NaN(nSims, 1);
+  logL = NaN(nSims, 1);
 
-%% Output
+  %% Main loop
 
-alpha   = these_params(:, 1);
-mu      = these_params(:, 2);
-sigma   = these_params(:, 3);
-tau     = these_params(:, 4);
+  for ii = 1:nSims
+    corelib.textbar(ii, nSims)
+    [cost(ii), logL(ii)] = objective(neurodec, options.Signal, these_params(ii, :));
+  end
 
-data_table = table(alpha, mu, sigma, tau, logL, cost);
+  %% Output
+
+  alpha   = these_params(:, 1);
+  mu      = these_params(:, 2);
+  sigma   = these_params(:, 3);
+  tau     = these_params(:, 4);
+
+  data_table = table(alpha, mu, sigma, tau, logL, cost);
+
+  %% Save output to file
+
+  save(data_path, 'data_table');
+end % if/else
