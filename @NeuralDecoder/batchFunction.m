@@ -43,9 +43,11 @@ function batchFunction(index, location, batchname, outfile, test)
   % cost function should take only one argument, a vector of parameters
   fun = @(params) neurodec.objective(speed, params);
   % lower bounds
-  lb = [0, 0, 0, 0];
+  lb = [0, -10*neurodec.Fs, 0, 0];
   % upper bounds
-  ub = [100, 100, 100, 100];
+  ub = [2, 10*neurodec.Fs, 10*neurodec.Fs, 100];
+
+  % perform optimization procedure
   [params, fval, exitflag, output] = particleswarm(fun, 4, lb, ub, options);
 
   %% Save the data
