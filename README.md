@@ -88,6 +88,18 @@ with respect to increasing log-likelihood.
 
 ![](https://user-images.githubusercontent.com/30243182/80387252-6b8ad300-8876-11ea-8bac-cc17c96bbf76.png)
 
+The objective function reaches its global minimum
+for the parameters that generated the transformed data.
+Here, the parameters `[0.2, 10, sqrt(3), 10]` were used
+to transform the sample data as shown above.
+The second and fourth parameters (mu and tau) were varied,
+the convolution performed,
+and the objective function computed.
+We see that the objective value is minimized when the parameters
+are the actual ones that were used to generate the transformed data.
+
+![](https://user-images.githubusercontent.com/30243182/80509995-1c14d780-8948-11ea-8ef8-62d7d12e7f92.png)
+
 <!-- ## Step 1: Collect the raw data
 
 The raw data is in the form of `CMBHOME.Session` objects.
