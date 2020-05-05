@@ -8,4 +8,4 @@ data_table = r.stitch(data_table);
 
 % save
 data_dir = fullfile(pathlib.strip(mfilename('fullpath'), 3), 'data');
-save(fullfile(data_dir, test-NeuralDecoder.mat', 'data_table', 'r');
+save(fullfile(data_dir, 'test-NeuralDecoder.mat'), 'data_table', 'r');
