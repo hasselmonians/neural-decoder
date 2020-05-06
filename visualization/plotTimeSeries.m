@@ -75,7 +75,7 @@ function varargout = plotTimeSeries(data_table, index, varargin)
 
     % plot the transformed running speed
     ax(3) = subplot(4, 1, 3);
-    plot(neurodec.timestamps, neurodec.encode(root.svel));
+    plot(neurodec.timestamps, NeuralDecoder.encode(root.svel, neurodec.kernel), 'k');
     xlabel('time (s)')
     ylabel('conv. signal (Hz)')
 
