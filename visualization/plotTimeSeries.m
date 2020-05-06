@@ -65,19 +65,19 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     ax(1) = subplot(4, 1, 1);
     plot(neurodec.getKernelSupport(), neurodec.kernel, 'k');
     xlabel('time (s)')
-    ylabel('kernel density')
+    ylabel({'kernel'; 'density'})
 
     % plot the speed trace
     ax(2) = subplot(4, 1, 2);
     plot(neurodec.timestamps, root.svel, 'k');
     xlabel('time (s)')
-    ylabel('running speed (cm/s)')
+    ylabel({'speed'; '(cm/s)'})
 
     % plot the transformed running speed
     ax(3) = subplot(4, 1, 3);
     plot(neurodec.timestamps, NeuralDecoder.encode(root.svel, neurodec.kernel), 'k');
     xlabel('time (s)')
-    ylabel('conv. signal (Hz)')
+    ylabel({'conv. signal'; '(Hz)'})
 
     % plot the spike train
     ax(4) = subplot(4, 1, 4);
@@ -87,6 +87,7 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     xlabel('time (s)')
     ylabel('# spikes')
 
+    linkaxes(ax(2:4), 'x')
     figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
 
 end % function
