@@ -21,7 +21,7 @@ function f = plotTimeSeries(data_table, index, varargin)
     options = struct;
     options.Verbosity = true; % true or false
     options.PreProcessFcn = []; % either empty or a function handle
-    options.PlotHere = []; % figure handle
+    % options.PlotHere = []; % figure handle
 
     options = orderfields(options);
 
@@ -42,11 +42,16 @@ function f = plotTimeSeries(data_table, index, varargin)
 
     %% Plot it
 
-    if ~exist(options.PlotHere) || isempty(options.PlotHere)
-        f = figure;
-    else
-        f = options.PlotHere;
-    end
+    % if ~exist(options.PlotHere) || isempty(options.PlotHere)
+    %     f = figure;
+    % else
+    %     f = options.PlotHere;
+    % end
+
+    figure('outerposition', [300 300 601 600], ...
+        'PaperUnits', 'points', ...
+        'PaperSize', [601 600]);
+    hold on
 
     % compute the kernel using the parameters
     w = neurodec.getKernelSupport();
@@ -57,8 +62,31 @@ function f = plotTimeSeries(data_table, index, varargin)
       'Verbosity', options.Verbosity);
 
     % plot the kernel
-    % ax(1) = subplot(f, 3, 1, 1);
+    ax(1) = subplot(4, 1, 1);
+    plot(neurodec.getKernelSupport(), neurodec.kernel, 'k');
+    xlabel('time (s)')
+    ylabel('kernel density')
 
     % plot the speed trace
+    ax(2) = subplot(4, 1, 2);
+    plot(neurodec.timestamps, root.svel, 'k');
+    xlabel('time (s)')
+    ylabel('running speed (cm/s)')
 
-    % plot the firing rate trace
+    % plot the transformed running speed
+    ax(3) = subplot(4, 1, 3);
+    plot(neurodec.timestamps, neurodec.encode(root.svel));
+    xlabel('time (s)')
+    ylabel('conv. signal (Hz)')
+
+    % plot the spike train
+    ax(4) = subplot(4, 1, 4);
+    stem(neurodec.timestamps, neurodec.spikeTrain, ...
+        'Marker', 'None', ...
+        'Color', [0 0 0])
+    xlabel('time (s)')
+    ylabel('# spikes')
+
+    figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1);
+
+end % function
