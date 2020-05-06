@@ -1,4 +1,4 @@
-function f = plotTimeSeries(data_table, index, varargin)
+function varargout = plotTimeSeries(data_table, index, varargin)
 
     %% Description:
     %   Creates a plot of the kernel, the speed trace,
