@@ -1,4 +1,5 @@
 %% test script
+% Test the encoding of arbitrary data with an arbitrary kernel.
 
 [firing_rate_estimate, neurodec, options] = generateSampleData();
 
