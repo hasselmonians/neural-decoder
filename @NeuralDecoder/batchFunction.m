@@ -45,7 +45,9 @@ function batchFunction(index, location, batchname, outfile, test)
   % lower bounds
   lb = [0, 0, 0, 0];
   % upper bounds
-  ub = [100, 100, 100, 100];
+  ub = [2, 40, 5, 3];
+
+  % perform optimization procedure
   [params, fval, exitflag, output] = particleswarm(fun, 4, lb, ub, options);
 
   %% Save the data

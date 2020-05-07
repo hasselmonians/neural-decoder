@@ -1,63 +1,43 @@
 %% test script
+% Test the kernel-generating function
+% and plot many kernels.
 
-[firing_rate_estimate, neurodec, options] = generateSampleData();
+%% Instantiate NeuralDecoder object
 
-%% Plot the fake data and the kernel
+neurodec            = NeuralDecoder();
+neurodec.Fs         = 50;               % Hz
+neurodec.bandwidth  = 40;               % s
+neurodec.verbosity  = true;
 
-figure;
-subplot(1, 2, 1);
-plot(neurodec.timestamps, options.Signal, 'k');
-box off
-xlabel('time (s)')
-ylabel('animal running speed (cm/s)')
-title('sample data')
-subplot(1, 2, 2);
-plot(neurodec.getKernelSupport(), neurodec.kernel, 'k')
-box off
-xlabel('time (s)')
-ylabel('kernel')
-my_title = { ...
-        'exGaussian kernel', ...
-        ['(\alpha = ' strlib.oval(options.Params(1), 2) ...
-        ', \mu = ' strlib.oval(options.Params(2), 2) ...
-        ', \sigma = ' strlib.oval(options.Params(3), 2) ...
-        ', \tau = ' strlib.oval(options.Params(4), 2) ')'] ...
-        };
-title(my_title)
-figlib.pretty('PlotBuffer', 0.1)
+w = neurodec.getKernelSupport();
 
-%% Plot the convolution, the spike train, and the raw data
+%% Generate a matrix of kernel parameters
 
-figure;
+% container for storing parameters
+params = permn([0, 3, 10, 30], 3);
+nKernels = length(params);
 
-% plot the raw signal
-ax(1) = subplot(3, 1, 1);
-plot(neurodec.timestamps, options.Signal, 'k')
-ylabel('animal running speed (cm/s)')
-box off
+% tack on the alpha parameter, fixed to unity
+params = [ones(nKernels, 1) params];
 
-% plot the transformed signal
-ax(2) = subplot(3, 1, 2);
-plot(neurodec.timestamps, firing_rate_estimate, 'k')
-box off
-ylabel('firing rate (Hz)')
+% container for storing kernels
+k = NaN(length(w), nKernels);
 
-% plot the spike train
-ax(3) = subplot(3, 1, 3);
-stem(neurodec.timestamps, neurodec.spikeTrain, 'Marker', 'None', 'Color', [0 0 0])
-ylabel('# spikes')
-box off
+% compute the kernels
+for ii = 1:nKernels
+    corelib.textbar(ii, nKernels);
+    k(:, ii) = exgauss_kernel(w, params(ii, :));
+end
 
-xlabel('time (s)')
-linkaxes(ax, 'x');
+%% Plot the kernels
 
-% label the plots
-title(ax(1), 'raw signal')
-title(ax(2), 'transformed signal')
-title(ax(3), 'sample spike train')
+figure; hold on;
+l = colormaps.linspecer(nKernels);
+for ii = 1:nKernels
+    plot(w, k(:, ii), 'Color', l(ii, :));
+end
 
-figlib.pretty('PlotBuffer', 0.2, 'PlotLineWidth', 1);
-
-%% Compute the log-likelihood
-
-loglikelihood = neurodec.loglikelihood(firing_rate_estimate)
+title('a bunch of kernels')
+xlabel('kernel support (s)')
+ylabel('kernel density')
+figlib.pretty('PlotBuffer', 0.1, 'PlotLineWidth', 1)
