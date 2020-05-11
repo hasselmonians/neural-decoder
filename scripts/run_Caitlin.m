@@ -17,7 +17,7 @@ r.verbose       = true;
 
 %% Load the post-processed BandwidthEstimator analysis on Caitlin's data
 
-corelib.verb(r.verbose, 'run_Caitlin', 'trying to load post-processed BandwidthEstimator data')
+corelib.verb(r.verbose, 'run_Caitlin', 'trying to load post-processed BandwidthEstimator data...')
 
 try
     % if the cluster is mounted locally
@@ -25,6 +25,7 @@ try
     corelib.verb(r.verbose, 'run_Caitlin', 'successfully loaded data using local path')
 catch
     % if on the cluster
+    corelib.verb(r.verbose, 'run_Caitlin', 'failed to load using local paths, trying with remote paths...')
     load /projectnb/hasselmogrp/ahoyland/data/caitlin/data-Caitlin-BandwidthEstimator-processed.mat
     corelib.verb(r.verbose, 'run_Caitlin', 'successfully loaded data using remote path')
 end
