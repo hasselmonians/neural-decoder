@@ -15,7 +15,7 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     %   handle to the figure
     %
     %% Examples:
-    % 
+    %
     %   options = plotTimeSeries()
     %
     %   h = plotTimeSeries(data_table, index, options)
@@ -56,9 +56,10 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     %     f = options.PlotHere;
     % end
 
-    figure('outerposition', [300 300 601 600], ...
-        'PaperUnits', 'points', ...
-        'PaperSize', [601 600]);
+    % figure('outerposition', [300 300 601 600], ...
+    %     'PaperUnits', 'points', ...
+    %     'PaperSize', [601 600]);
+    figure('units','normalized','outerposition',[0 0 1 1])
     hold on
 
     % compute the kernel using the parameters
@@ -77,7 +78,9 @@ function varargout = plotTimeSeries(data_table, index, varargin)
 
     % plot the speed trace
     ax(2) = subplot(4, 1, 2);
-    plot(neurodec.timestamps, root.svel, 'k');
+    speed = root.svel;
+    speed(speed > 50) = NaN;
+    plot(neurodec.timestamps, speed, 'k');
     xlabel('time (s)')
     ylabel({'speed'; '(cm/s)'})
 
