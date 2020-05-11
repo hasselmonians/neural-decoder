@@ -56,10 +56,10 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     %     f = options.PlotHere;
     % end
 
-    % figure('outerposition', [300 300 601 600], ...
-    %     'PaperUnits', 'points', ...
-    %     'PaperSize', [601 600]);
-    figure('units','normalized','outerposition',[0 0 1 1])
+    varargout{1} = figure('outerposition', [300 300 601 600], ...
+        'PaperUnits', 'points', ...
+        'PaperSize', [601 600]);
+    % varargout{1} = figure('units','normalized','outerposition',[0 0 1 1]);
     hold on
 
     % compute the kernel using the parameters
