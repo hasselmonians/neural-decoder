@@ -14,6 +14,14 @@ function varargout = plotTimeSeries(data_table, index, varargin)
     %% Outputs:
     %   handle to the figure
     %
+    %% Examples:
+    % 
+    %   options = plotTimeSeries()
+    %
+    %   h = plotTimeSeries(data_table, index, options)
+    %
+    %   h = plotTimeSeries(data_table, index, 'Name', value, ...)
+    %
     %% See Also: RatCatcher/extract
 
     %% Preamble
