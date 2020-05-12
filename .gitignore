@@ -279,3 +279,6 @@ TSWLatexianTemp*
 cluster/*
 data/*
 figures/*
+
+# ignore pdfs and html
+html/*
