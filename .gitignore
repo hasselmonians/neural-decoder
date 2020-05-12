@@ -281,4 +281,4 @@ data/*
 figures/*
 
 # ignore pdfs and html
-html/*
+**/html/*
