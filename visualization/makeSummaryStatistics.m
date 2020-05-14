@@ -1,6 +1,6 @@
 % show summary statistics of the data table
 % containing the four parameters of the EMG kernel
-% after running the NeuralDecoder protocol on Caitlin's dataset
+% after running the NeuralDecoder protocol on Holger's dataset
 
 being_published = true;
 pdflib.header;
@@ -8,10 +8,10 @@ tic;
 
 % load the data
 package_dir = pathlib.strip(mfilename('fullpath'), 2);
-load(fullfile(package_dir, 'data', 'Caitlin-SM-NeuralDecoder.mat'));
+load(fullfile(package_dir, 'data', 'Holger-SM-NeuralDecoder.mat'));
 
 %% Introduction
-% Take Caitlin's dataset of rats freely exploring an empty, square arena,
+% Take Holger's dataset of rats freely exploring an empty, square arena,
 % and compute the relationship between the firing rate of
 % putatively speed-modulated cells,
 % and the running speed of the animal.
@@ -33,7 +33,7 @@ load(fullfile(package_dir, 'data', 'Caitlin-SM-NeuralDecoder.mat'));
 % of an exponential probability density function,
 % and is bounded in |[0, 3]|.
 %
-% Caitlin's dataset was separated into putatively speed-modulated,
+% Holger's dataset was separated into putatively speed-modulated,
 % and putatively non-speed-modulated cells
 % by a threshold of |R >= 0.0795| between the running speed signal
 % and the firing rate of the cell as computed by
