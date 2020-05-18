@@ -25,20 +25,17 @@ load(fullfile(package_dir, 'data', 'Holger-SM-NeuralDecoder.mat'));
 % It is bounded in |[0, 2]|.
 % |mu| is the lag parameter and analogous to the parameter of the same name
 % in the gaussian probability density function.
-% It is bounded in |[0, 40]|.
+% It is bounded in |[0, 30]|.
 % |sigma| is the spread parameter,
 % the correlate of the gaussian standard deviation parameter,
-% and it is bounded in |[0, 5]|.
+% and it is bounded in |[0, 15]|.
 % |tau| is the decay parameter, is analogous to the time constant
 % of an exponential probability density function,
-% and is bounded in |[0, 3]|.
+% and is bounded in |[0, 15]|.
 %
 % Holger's dataset was separated into putatively speed-modulated,
 % and putatively non-speed-modulated cells
-% by a threshold of |R >= 0.0795| between the running speed signal
-% and the firing rate of the cell as computed by
-% the maximum-likelihood estimate with cross-validation approach
-% using a Hann kernel (Prerau & Eden 2011, Dannenberg et al. 2019).
+% using a GLM (Dannenberg et al. 2019, Prerau & Eden 2011, Hardcastle et al. 2017).
 
 %% Summary statistics
 
