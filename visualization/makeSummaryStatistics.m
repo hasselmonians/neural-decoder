@@ -64,7 +64,7 @@ end
 
 %% Samples
 
-for ii = 1:height(data_table)
+for ii = 1:5
 	plotTimeSeries(data_table, ii, ...
 		'PreProcessFcn', @(x) strrep(x, 'projectnb', 'mnt'), ...
 		'Verbosity', false);
