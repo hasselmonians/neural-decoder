@@ -56,6 +56,9 @@ for ii = colon(size(parameter_combinations, 1), -1, 1)
 	xlabel(['\' parameter_combinations{ii, 1}])
 	ylabel(['\' parameter_combinations{ii, 2}])
 
+	set(gcf, 'Units', 'Normalized')
+	set(gcf, 'Position', [0 0 1 1])
+
 	if being_published
 	  pdflib.snap()
 	  delete(gcf)
@@ -68,6 +71,8 @@ for ii = 1:5
 	plotTimeSeries(data_table, ii, ...
 		'PreProcessFcn', @(x) strrep(x, 'projectnb', 'mnt'), ...
 		'Verbosity', false);
+	set(gcf, 'Units', 'Normalized')
+	set(gcf, 'Position', [0 0 1 1])
 	if being_published
 		pdflib.snap()
 		delete(gcf)
