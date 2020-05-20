@@ -2,7 +2,7 @@
 % containing the four parameters of the EMG kernel
 % after running the NeuralDecoder protocol on Holger's dataset
 
-being_published = true;
+being_published = false;
 pdflib.header;
 tic;
 
