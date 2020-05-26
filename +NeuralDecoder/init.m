@@ -15,6 +15,7 @@ function init(isCluster)
         addpath /projectnb/hasselmogrp/ahoyland/ex-gaussian
         addpath /projectnb/hasselmogrp/ahoyland/neural-decoder
         addpath /projectnb/hasselmogrp/ahoyland/neural-decoder/utils
+        addpath /projectnb/hasselmogrp/ahoyland/neural-decoder/scripts
         addpath /projectnb/hasselmogrp/ahoyland/RatCatcher
         addpath /projectnb/hasselmogrp/ahoyland/RatCatcher/scripts
         addpath /projectnb/hasselmogrp/ahoyland/CMBHOME
@@ -24,6 +25,7 @@ function init(isCluster)
         addpath(fullfile(code_dir, 'ex-gaussian'))
         addpath(fullfile(code_dir, 'neural-decoder'))
         addpath(fullfile(code_dir, 'neural-decoder', 'utils'))
+        addpath(fullfile(code_dir, 'neural-decoder', 'scripts'))
 	addpath(fullfile(code_dir, 'RatCatcher'))
 	addpath(fullfile(code_dir, 'RatCatcher', 'scripts'))
 	addpath(fullfile(code_dir, 'CMBHOME'))
