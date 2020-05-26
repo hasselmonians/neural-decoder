@@ -1,7 +1,22 @@
 %% test script
 % Test the encoding of arbitrary data with an arbitrary kernel.
 
-[firing_rate_estimate, neurodec, options] = generateSampleData();
+%% Acquire the data
+
+% load sample raw data
+[~, neurodec, root] = generateRawData();
+
+% instantiate options
+options             = struct;
+options.Bandwidth   = 60;
+options.dt          = 1 / 50;
+options.Params      = [0.2, 10, sqrt(3), 10];
+options.Signal      = root.svel;
+options.Timestamps  = root.ts;
+options.Verbosity   = true;
+
+% perform the convolutions
+[firing_rate_estimate, neurodec, options] = generateSampleData(options);
 
 %% Plot the fake data and the kernel
 
