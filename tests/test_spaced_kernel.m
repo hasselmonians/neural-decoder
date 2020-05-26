@@ -7,13 +7,30 @@
 % path to where data should be saved
 data_path = fullfile(pathlib.strip(mfilename('fullpath'), 2), 'data', 'test_spaced_kernel.mat');
 
-% structure of default options
-options = generateSampleData();
+%% Acquire the raw data
+
+% load sample raw data
+[~, neurodec, root] = generateRawData();
+
+% instantiate options
+options             = struct;
+options.Bandwidth   = 60;
+options.dt          = 1 / 50;
+options.Params      = [0.2, 10, sqrt(3), 10];
+options.Signal      = root.svel;
+options.Timestamps  = root.ts;
+options.Verbosity   = true;
+
+%% Perform the encoding
 
 % check to see if file exists
 if exist(data_path, 'file')
+  % data file exists, load the data file and don't do expensive computations
+  corelib.verb(true, 'neural-decoder/test_spaced_kernel', 'data file found, loading...')
   load(data_path)
 else
+  % data file doesn't exist, performing expensive computations
+  corelib.verb(true, 'neural-decoder/test_spaced_kernel', 'data file not found, performing computations...')
 
   %% Generate the true data
 
@@ -61,6 +78,7 @@ else
 
   %% Save output to file
 
+  corelib.verb(true, 'neural-decoder/test_spaced_kernel', ['saving data file to: ' data_path])
   save(data_path, 'data_table');
 end % if/else
 
