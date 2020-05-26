@@ -32,7 +32,7 @@ function varargout = generateSampleData(varargin)
   options.Bandwidth   = 40;
   options.dt          = 1 / 50;
   options.Params      = [0.2, 10, sqrt(3), 10];
-  options.Signal      = generateRawData();
+  options.Signal      = generateFakeData();
   options.Timestamps  = 0:options.dt:300;
   options.Verbosity   = true;
 
