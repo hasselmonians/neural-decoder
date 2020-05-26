@@ -17,17 +17,17 @@ r.verbose       = true;
 
 %% Load the filenames and filecodes from Holger's 2019 dataset
 
-corelib.verb(r.verbose, 'run_Holger', 'trying to load post-processed BandwidthEstimator data...')
+corelib.verb(r.verbose, 'neural-decoder/run_Holger', 'trying to load post-processed BandwidthEstimator data...')
 
 try
     % if the cluster is mounted locally
     load /mnt/hasselmogrp/ahoyland/data/holger/speed-modulation/filenames_speed_modulated.mat
-    corelib.verb(r.verbose, 'run_Holger', 'successfully loaded data using local path')
+    corelib.verb(r.verbose, 'neural-decoder/run_Holger', 'successfully loaded data using local path')
 catch
     % if on the cluster
-    corelib.verb(r.verbose, 'run_Holger', 'failed to load using local paths, trying with remote paths...')
+    corelib.verb(r.verbose, 'neural-decoder/run_Holger', 'failed to load using local paths, trying with remote paths...')
     load /projectnb/hasselmogrp/ahoyland/data/holger/speed-modulation/filenames_speed_modulated.mat
-    corelib.verb(r.verbose, 'run_Holger', 'successfully loaded data using remote path')
+    corelib.verb(r.verbose, 'neural-decoder/run_Holger', 'successfully loaded data using remote path')
 end
 
 % add filenames and filecodes to RatCatcher object
