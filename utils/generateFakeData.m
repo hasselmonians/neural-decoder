@@ -1,4 +1,4 @@
-function raw_signal = generateFakeData()
+function [raw_signal, time] = generateFakeData()
 
     % generate time vector
     total_time = 300; % seconds
