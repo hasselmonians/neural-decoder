@@ -42,7 +42,7 @@ else
   nSamples = 19;
 
   % create a matrix of integral exponents
-  exponents = linspace(-1, 1, 13);
+  exponents = linspace(-1, 2, 13);
   exp_matrix = permn(exponents, 2);
   nSims = length(exp_matrix);
 
